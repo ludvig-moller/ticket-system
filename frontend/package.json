@@ -8,9 +8,13 @@
     "build": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "build-only": "vite build",
-    "type-check": "vue-tsc --build"
+    "type-check": "vue-tsc --build",
+    "test": "vitest"
   },
   "dependencies": {
+    "@vue/test-utils": "^2.4.11",
+    "jsdom": "^30.0.1",
+    "vitest": "^4.1.11",
     "vue": "^3.5.40"
   },
   "devDependencies": {
