@@ -1,4 +1,5 @@
 import express, { type Express, type Request, type Response } from "express";
+import cors from "cors";
 
 import db from "./config/db.ts";
 
@@ -8,6 +9,8 @@ import { TicketController } from "./controller/ticketController.ts";
 import { createTicketRoutes } from "./routes/ticketRoutes.ts";
 
 const app: Express = express();
+
+app.use(cors());
 
 const ticketRepository = new TicketRepository(db);
 const ticketService = new TicketService(ticketRepository);
