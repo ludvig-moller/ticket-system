@@ -1,5 +1,9 @@
+<script setup lang="ts">
+import CreateTicket from './components/CreateTicket.vue';
+</script>
+
 <template>
   <main>
-    <h1>Hello World!</h1>
+    <CreateTicket />
   </main>
 </template>

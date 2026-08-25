@@ -26,14 +26,7 @@ describe("CreateTicket", () => {
     });
 
     it("shows the ticket code when a ticket has been created", async () => {
-        vi.mocked(createTicket).mockResolvedValue(
-            {
-                id: "abc-123",
-                used: false,
-                created_at: "",
-                used_at: "",
-            }
-        );
+        vi.mocked(createTicket).mockResolvedValue("abc-123");
 
         const wrapper = mount(CreateTicket);
 
@@ -51,6 +44,6 @@ describe("CreateTicket", () => {
         const button = wrapper.find("button");
         await button.trigger("click");
 
-        expect(wrapper.find("#error").exists()).toBe(true);
+        expect(wrapper.find(".error").exists()).toBe(true);
     });
 });
