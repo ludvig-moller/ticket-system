@@ -8,15 +8,15 @@ export class TicketController {
         this.ticketService = ticketService;
     }
 
-    create = (
-        req: Request,
-        res: Response,
-    ) => {
+    get = (req: Request, res: Response) => {
+        const tickets = this.ticketService.get();
+        res.status(200).json(tickets);
+    }
+
+    create = (req: Request, res: Response) => {
         const ticketId = this.ticketService.create();
-        res.status(201).json(
-            {
-                "id": ticketId,
-            }
-        );
+        res.status(201).json({
+            id: ticketId,
+        });
     }
 }

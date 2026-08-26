@@ -1,3 +1,4 @@
+import type { Ticket } from "../models/Ticket.ts";
 import { TicketRepository } from "../repositories/ticketRepository.ts";
 
 export class TicketService {
@@ -5,6 +6,10 @@ export class TicketService {
 
     constructor(ticketRepository: TicketRepository) {
         this.ticketRepository = ticketRepository;
+    }
+
+    get(): Ticket[] {
+        return this.ticketRepository.get();
     }
 
     create(): string {
