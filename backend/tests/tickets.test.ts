@@ -26,12 +26,12 @@ describe("GET /api/tickets", () => {
         expect(res.status).toBe(401)
     });
 
-    it("should return unauthorized response when an invalid API key is provided", async () => {
+    it("should return forbidden response when an invalid API key is provided", async () => {
         const res = await request(app)
             .get("/api/tickets")
             .set("x-api-key", "invalid-key");
 
-        expect(res.status).toBe(401)
+        expect(res.status).toBe(403)
     });
 
     it("should return ok when the correct API key is provided", async () => {
@@ -66,9 +66,7 @@ describe("GET /api/tickets", () => {
         
         expect(after.status).toBe(200);
         expect(after.body).toHaveLength(before.body.length + 1);
-        expect(after.body[before.body.length]).toContain({
-            "id": newTicketId
-        });
+        expect(after.body[before.body.length].id).toBe(newTicketId);
 
         deleteTicket.run(newTicketId);
     });
