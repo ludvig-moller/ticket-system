@@ -1,6 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { mount } from "@vue/test-utils";
-import ApiKey, { apiKey } from "./ApiKey.vue";
+import ApiKey from "./ApiKey.vue";
+import { apiKey } from "@/states/apiKey.ts";
 
 describe("ApiKey", () => {
     it("shows an input and a button", () => {
