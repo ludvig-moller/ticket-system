@@ -22,7 +22,7 @@ const click = async () => {
 
 <template>
     <div id="createTicket">
-        <button @click="click()">Create a Ticket</button>
+        <button @click="click">Create a Ticket</button>
 
         <p v-if="!error"> 
             {{ ticketId }}

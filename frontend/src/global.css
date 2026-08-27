@@ -7,9 +7,13 @@ main {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 p {
+    margin: auto;
     font-size: large;
 }
 
@@ -22,6 +26,14 @@ button {
 
 button:hover {
     filter: brightness(0.95);
+}
+
+input {
+    width: 80%;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 20px;
+    font-size: large;
 }
 
 .error {
