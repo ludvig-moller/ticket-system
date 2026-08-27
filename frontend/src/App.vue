@@ -1,6 +1,6 @@
 
 <script setup lang="ts">
-  import CreateTicket from './components/CreateTicket.vue';
+import CreateTicket from './components/CreateTicket.vue';
 </script>
 
 <template>
@@ -10,5 +10,5 @@
 </template>
 
 <style>
-  @import "./global.css";
+@import "./global.css";
 </style>

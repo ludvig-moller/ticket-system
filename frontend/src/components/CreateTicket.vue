@@ -1,23 +1,23 @@
 
 <script setup lang="ts">
-    import { ref } from 'vue';
-    import { createTicket } from '@/services/ticketService';
+import { ref } from 'vue';
+import { createTicket } from '@/services/ticketService';
 
-    const ticketId = ref("");
-    const error = ref("");
+const ticketId = ref("");
+const error = ref("");
 
-    const click = async () => {
-        const res = await createTicket();
+const click = async () => {
+    const res = await createTicket();
 
-        if (res != null) {
-            ticketId.value = res;
-            error.value = "";
-        }
-        else {
-            error.value = "Something went wrong.";
-            ticketId.value = "";
-        }
+    if (res != null) {
+        ticketId.value = res;
+        error.value = "";
     }
+    else {
+        error.value = "Something went wrong.";
+        ticketId.value = "";
+    }
+}
 </script>
 
 <template>
@@ -35,9 +35,9 @@
 </template>
 
 <style lang="css" scoped>
-    #createTicket {
-        display: flex;
-        justify-content: start;
-        gap: 40px;
-    }
+#createTicket {
+    display: flex;
+    justify-content: start;
+    gap: 40px;
+}
 </style>
