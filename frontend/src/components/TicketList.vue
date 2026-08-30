@@ -54,7 +54,7 @@ watch(
             No tickets found.
         </p>
         <ul v-else>
-            <li v-for="ticket in tickets">
+            <li v-for="ticket in tickets" v-bind:class="(ticket.used)?'used':''">
                 {{ ticket.id }}
             </li>
         </ul>
@@ -62,5 +62,7 @@ watch(
 </template>
 
 <style>
-
+.used {
+    background-color: lightgray;
+}
 </style>

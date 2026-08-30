@@ -36,6 +36,21 @@ input {
     font-size: large;
 }
 
+ul {
+    padding: 0px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+li {
+    padding: 10px;
+    border: solid;
+    border-radius: 10px;
+    font-size: large;
+}
+
 .error {
     color: red;
 }
