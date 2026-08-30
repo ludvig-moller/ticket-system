@@ -1,13 +1,26 @@
-import { describe, it, expect } from "vitest";
-import { mount } from "@vue/test-utils";
+import { describe, it, expect, vi } from "vitest";
+import { flushPromises, mount } from "@vue/test-utils";
 import TicketList from "./TicketList.vue";
-import { ticketList } from "@/states/ticketList.ts";
 import { type Ticket } from "@/types/ticket.ts";
+import { getTickets } from "@/services/ticketService.ts";
+
+vi.mock("@/services/ticketService.ts", () => ({
+    getTickets: vi.fn(),
+}));
 
 describe("TicketList", () => {
-    it("shows all tickets in ticketList state", () => {
+    it("shows errors", async () => {
+        vi.mocked(getTickets).mockRejectedValue(new Error("Testing error"));
+
         const wrapper = mount(TicketList);
 
+        await flushPromises();
+
+        const error = wrapper.find(".error");
+        expect(error.exists()).toBe(true);
+    });
+
+    it("shows all tickets", async () => {
         const newTicketList: Ticket[] = [
             {
                 id: "ABC-123",
@@ -23,7 +36,11 @@ describe("TicketList", () => {
             }
         ]
 
-        ticketList.value = newTicketList;
+        vi.mocked(getTickets).mockResolvedValue(newTicketList);
+
+        const wrapper = mount(TicketList);
+
+        await flushPromises();
 
         expect(wrapper.text()).toContain("ABC-123");
         expect(wrapper.text()).toContain("DEF-456");
