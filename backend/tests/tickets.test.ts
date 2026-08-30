@@ -31,7 +31,7 @@ describe("GET /api/tickets", () => {
             .get("/api/tickets")
             .set("x-api-key", "invalid-key");
 
-        expect(res.status).toBe(403)
+        expect(res.status).toBe(401)
     });
 
     it("should return ok when the correct API key is provided", async () => {

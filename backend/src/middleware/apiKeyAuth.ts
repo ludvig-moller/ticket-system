@@ -12,7 +12,7 @@ function apiKeyAuth(req: Request, res: Response, next: NextFunction) {
     }
 
     if (providedKey !== API_KEY) {
-        return res.status(403).json({
+        return res.status(401).json({
             error: "Invalid API key"
         });
     }
