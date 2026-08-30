@@ -1,21 +1,20 @@
 import axios from "axios";
 import { apiKey } from "@/states/apiKey";
+import type { Ticket } from "@/types/ticket";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export async function createTicket(): Promise<string | null> {
-    try {
-        console.log(apiKey.value);
-        const response = await axios.post(`${API_URL}/api/tickets`);
-        const data = response.data;
-        
-        if (response.status != 201 || !data.id) {
-            return null;
+export async function getTickets(): Promise<Ticket[]> {
+    const response = await axios.get(`${API_URL}/api/tickets`, {
+        headers: {
+            "x-api-key": apiKey.value
         }
+    });
 
-        return data.id;
-    } catch(err) {
-        console.log(err);
-        return null;
-    }
+    return response.data;
+}
+
+export async function createTicket(): Promise<string | null> {
+    const response = await axios.post(`${API_URL}/api/tickets`);
+    return response.data.id;
 }
