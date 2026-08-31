@@ -18,3 +18,7 @@ export async function createTicket(): Promise<string | null> {
     const response = await axios.post(`${API_URL}/api/tickets`);
     return response.data.id;
 }
+
+export async function useTicket() {
+    
+}
