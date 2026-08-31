@@ -126,7 +126,7 @@ describe("DELETE /api/tickets/:id", () => {
 
     it("should return 404 when the ticket dosent exist", async () => {
         const res = await request(app)
-            .post("/api/tickets/invalid-id")
+            .delete("/api/tickets/invalid-id")
             .set("x-api-key", api_key);
         
         expect(res.status).toBe(404);
@@ -137,7 +137,7 @@ describe("DELETE /api/tickets/:id", () => {
         insertTicket.run(newTicketId);
 
         const res = await request(app)
-            .post(`/api/tickets/${newTicketId}`)
+            .delete(`/api/tickets/${newTicketId}`)
             .set("x-api-key", api_key);
         
         expect(res.status).toBe(204);
