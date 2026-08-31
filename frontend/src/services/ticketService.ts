@@ -22,3 +22,7 @@ export async function createTicket(): Promise<string | null> {
 export async function useTicket() {
     
 }
+
+export async function deleteTicket() {
+    
+}
