@@ -1,7 +1,6 @@
 import { type Request, type Response } from "express";
 import type { TicketService } from "../services/ticketService.ts";
 import NotFoundError from "../errors/NotFoundError.ts";
-import { error } from "node:console";
 import ConflictError from "../errors/ConflictError.ts";
 
 export class TicketController {
