@@ -19,10 +19,11 @@ export async function createTicket(): Promise<string | null> {
     return response.data.id;
 }
 
-export async function useTicket() {
-    
+export async function useTicket(id: string) {
+    const response = await axios.post(`${API_URL}/api/tickets/${id}`);
+    return response.data.id;
 }
 
 export async function deleteTicket() {
-    
+
 }
