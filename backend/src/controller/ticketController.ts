@@ -1,5 +1,8 @@
 import { type Request, type Response } from "express";
 import type { TicketService } from "../services/ticketService.ts";
+import NotFoundError from "../errors/NotFoundError.ts";
+import { error } from "node:console";
+import ConflictError from "../errors/ConflictError.ts";
 
 export class TicketController {
     private readonly ticketService: TicketService;
@@ -18,5 +21,27 @@ export class TicketController {
         res.status(201).json({
             id: ticketId,
         });
+    }
+
+    use = (req: Request, res: Response) => {
+        const { id } = req.params;
+
+        if (typeof id !== "string") {
+            return res.status(400).json({ error: "Invalid ticket ID" });
+        }
+
+        try {
+            this.ticketService.use(id);
+        } catch(err) {
+            if (err instanceof NotFoundError) {
+                return res.status(404).json({ error: err.message });
+            }
+            else if (err instanceof ConflictError) {
+                return res.status(409).json({ error: err.message });
+            }
+            return res.status(500).json({ error: "Internal server error" });
+        }
+
+        res.status(204).send();
     }
 }

@@ -88,7 +88,7 @@ describe("POST /api/tickets/:id", () => {
 
         const ticket = getTicket.get(newTicketId) as Ticket;
 
-        expect(ticket.used).toBe(true);
+        expect(Boolean(ticket.used)).toBe(true);
 
         deleteTicket.run(newTicketId);
     });
