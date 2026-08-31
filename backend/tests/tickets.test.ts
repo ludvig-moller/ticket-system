@@ -93,3 +93,43 @@ describe("POST /api/tickets/:id", () => {
         deleteTicket.run(newTicketId);
     });
 });
+
+describe("DELETE /api/tickets/:id", () => {
+    it("should return unauthorized response when no API key is provided", async () => {
+        const res = await request(app)
+            .delete("/api/tickets/random-id");
+
+        expect(res.status).toBe(401)
+    });
+
+    it("should return forbidden response when an invalid API key is provided", async () => {
+        const res = await request(app)
+            .delete("/api/tickets/random-id")
+            .set("x-api-key", "invalid-key");
+
+        expect(res.status).toBe(401)
+    });
+
+    it("should return 404 when the ticket dosent exist", async () => {
+        const res = await request(app)
+            .post("/api/tickets/invalid-id")
+            .set("x-api-key", api_key);
+        
+        expect(res.status).toBe(404);
+    });
+
+    it("should return 204 and delete the ticket", async () => {
+        const newTicketId = crypto.randomUUID();
+        insertTicket.run(newTicketId);
+
+        const res = await request(app)
+            .post(`/api/tickets/${newTicketId}`)
+            .set("x-api-key", api_key);
+        
+        expect(res.status).toBe(204);
+
+        const ticket = getTicket.get(newTicketId) as Ticket;
+
+        expect(ticket).toBe(undefined);
+    });
+});
