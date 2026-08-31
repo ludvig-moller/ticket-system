@@ -92,6 +92,20 @@ describe("POST /api/tickets/:id", () => {
 
         deleteTicket.run(newTicketId);
     });
+
+    it("should return 409 if the ticket has already been used", async () => {
+        const newTicketId = crypto.randomUUID();
+        insertTicket.run(newTicketId);
+
+        // Use the ticket
+        await request(app)
+            .post(`/api/tickets/${newTicketId}`);
+
+        const res = await request(app)
+            .post(`/api/tickets/${newTicketId}`);
+
+        expect(res.status).toBe(409);
+    });
 });
 
 describe("DELETE /api/tickets/:id", () => {
