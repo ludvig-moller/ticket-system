@@ -31,4 +31,10 @@ export class TicketRepository {
             .prepare("UPDATE tickets SET used = 1 WHERE id = ?")
             .run(id);
     }
+
+    delete(id: string) {
+        this.db
+            .prepare("DELETE FROM tickets WHERE id = ?")
+            .run(id);
+    }
 }

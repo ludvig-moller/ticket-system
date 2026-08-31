@@ -8,6 +8,7 @@ export const createTicketRoutes = (ticketController: TicketController) => {
     router.get("/", apiKeyAuth, ticketController.get);
     router.post("/", ticketController.create);
     router.post("/:id", ticketController.use);
+    router.delete("/:id", apiKeyAuth, ticketController.delete);
 
     return router;
 } 

@@ -30,4 +30,13 @@ export class TicketService {
 
         this.ticketRepository.use(id);
     }
+
+    delete(id: string) {
+        const ticket = this.ticketRepository.getById(id);
+
+        if (ticket === undefined)
+            throw new NotFoundError("Ticket not found");
+
+        this.ticketRepository.delete(id);
+    }
 }
