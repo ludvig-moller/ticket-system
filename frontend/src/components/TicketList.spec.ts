@@ -3,6 +3,7 @@ import { flushPromises, mount } from "@vue/test-utils";
 import TicketList from "./TicketList.vue";
 import { type Ticket } from "@/types/ticket.ts";
 import { getTickets } from "@/services/ticketService.ts";
+import { errors } from "@/states/errors.ts";
 
 vi.mock("@/services/ticketService.ts", () => ({
     getTickets: vi.fn(),
@@ -11,13 +12,11 @@ vi.mock("@/services/ticketService.ts", () => ({
 describe("TicketList", () => {
     it("shows errors", async () => {
         vi.mocked(getTickets).mockRejectedValue(new Error("Testing error"));
-
-        const wrapper = mount(TicketList);
-
+        
+        mount(TicketList);
         await flushPromises();
 
-        const error = wrapper.find(".error");
-        expect(error.exists()).toBe(true);
+        expect(errors.value.length).toBeGreaterThan(0);
     });
 
     it("shows all tickets", async () => {

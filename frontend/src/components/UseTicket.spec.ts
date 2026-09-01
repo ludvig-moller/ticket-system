@@ -2,6 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { flushPromises, mount } from "@vue/test-utils";
 import UseTicket from "./UseTicket.vue";
 import { useTicket } from "@/services/ticketService.ts";
+import { errors } from "@/states/errors.ts";
 
 vi.mock("@/services/ticketService.ts", () => ({
     useTicket: vi.fn(),
@@ -29,9 +30,9 @@ describe("UseTicket", () => {
         expect(useTicket).toHaveBeenCalled();
     });
 
-    it("shows errors", async () => {
+    it("updates errors", async () => {
         vi.mocked(useTicket).mockRejectedValue(new Error("Testing error"));
-
+        
         const wrapper = mount(UseTicket);
 
         const button = wrapper.find("button");
@@ -39,7 +40,6 @@ describe("UseTicket", () => {
 
         await flushPromises();
 
-        const error = wrapper.find(".error");
-        expect(error.exists()).toBe(true);
+        expect(errors.value.length).toBeGreaterThan(0);
     });
 });
