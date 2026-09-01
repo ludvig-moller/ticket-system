@@ -5,6 +5,7 @@ import axios from 'axios';
 import type { Ticket } from '@/types/ticket';
 import { getTickets } from '@/services/ticketService';
 import { apiKey } from '@/states/apiKey';
+import DeleteTicket from './DeleteTicket.vue';
 
 const tickets = ref<Ticket[] | null>(null);
 const error = ref<string | null>(null);
@@ -55,7 +56,8 @@ watch(
         </p>
         <ul v-else>
             <li v-for="ticket in tickets" v-bind:class="(ticket.used)?'used':''">
-                {{ ticket.id }}
+                <p>{{ ticket.id }}</p>
+                <DeleteTicket v-bind:ticketId="ticket.id" />
             </li>
         </ul>
     </div>

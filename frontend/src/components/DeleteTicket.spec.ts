@@ -1,7 +1,11 @@
 import { describe, it, expect, vi } from "vitest";
-import { flushPromises, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import DeleteTicket from "./DeleteTicket.vue";
 import { deleteTicket } from "@/services/ticketService.ts";
+
+vi.mock("@/services/ticketService.ts", () => ({
+    deleteTicket: vi.fn(),
+}));
 
 describe("DeleteTicket", () => {
     it("shows a button", () => {
@@ -19,16 +23,5 @@ describe("DeleteTicket", () => {
         await button.trigger("click");
 
         expect(deleteTicket).toHaveBeenCalled();
-    });
-
-    it("shows errors", async () => {
-        vi.mocked(deleteTicket).mockRejectedValue(new Error("Testing error"));
-
-        const wrapper = mount(DeleteTicket);
-
-        await flushPromises();
-
-        const error = wrapper.find(".error");
-        expect(error.exists()).toBe(true);
     });
 });

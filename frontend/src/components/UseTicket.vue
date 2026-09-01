@@ -5,7 +5,7 @@ import { useTicket } from '@/services/ticketService';
 import axios from 'axios';
 
 const ticketId = ref("");
-const error = ref<string | null>("");
+const error = ref<string | null>(null);
 
 const click = async () => {
     if (ticketId.value === "") {
