@@ -3,10 +3,16 @@
 import { ref } from 'vue';
 import { apiKey } from '@/states/apiKey';
 
+const localApiKey = localStorage.getItem("apiKey");
+if (localApiKey != null) {
+    apiKey.value = localApiKey;
+}
+
 const newApiKey = ref("");
 
 const click = () => {
     apiKey.value = newApiKey.value;
+    localStorage.setItem("apiKey", newApiKey.value);
     newApiKey.value = "";
 }
 </script>
