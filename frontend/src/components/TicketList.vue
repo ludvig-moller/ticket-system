@@ -18,7 +18,19 @@ async function loadTickets() {
     }
 
     try {
-        tickets.value = await getTickets();
+        const ticketArray = await getTickets();
+
+        ticketArray.sort((a, b) => {
+            const aDate = new Date(a.created_at);
+            const bDate = new Date(b.created_at);
+            if (aDate < bDate)
+                return 1;
+            if (aDate > bDate)
+                return -1;
+            return 0;
+        });
+
+        tickets.value = ticketArray;
         error.value = null;
     } catch(err) {
         tickets.value = null;
