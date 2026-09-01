@@ -1,6 +1,7 @@
 
 <script setup lang="ts">
 import { deleteTicket } from '@/services/ticketService';
+import { reloadTickets } from '@/states/reloadTickets';
 
 const props = defineProps({
     ticketId: String,
@@ -8,6 +9,7 @@ const props = defineProps({
 
 const click = async () => {
     await deleteTicket(props.ticketId!);
+    reloadTickets.value++;
 }
 </script>
 

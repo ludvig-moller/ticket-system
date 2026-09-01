@@ -3,6 +3,7 @@
 import { ref } from 'vue';
 import { useTicket } from '@/services/ticketService';
 import axios from 'axios';
+import { reloadTickets } from '@/states/reloadTickets';
 
 const ticketId = ref("");
 const error = ref<string | null>(null);
@@ -16,6 +17,8 @@ const click = async () => {
     try {
         await useTicket(ticketId.value);
         error.value = null;
+
+        reloadTickets.value++;
     } catch(err) {
         if (axios.isAxiosError(err)) {
             if (err.response?.status === 404) {

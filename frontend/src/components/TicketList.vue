@@ -5,6 +5,7 @@ import axios from 'axios';
 import type { Ticket } from '@/types/ticket';
 import { getTickets } from '@/services/ticketService';
 import { apiKey } from '@/states/apiKey';
+import { reloadTickets } from '@/states/reloadTickets.ts';
 import DeleteTicket from './DeleteTicket.vue';
 
 const tickets = ref<Ticket[] | null>(null);
@@ -35,7 +36,7 @@ async function loadTickets() {
 }
 
 watch(
-    apiKey,
+    [reloadTickets, apiKey],
     () => {
         loadTickets();
     },

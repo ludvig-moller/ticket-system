@@ -2,6 +2,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { createTicket } from '@/services/ticketService';
+import { reloadTickets } from '@/states/reloadTickets';
 
 const ticketId = ref("");
 const error = ref("");
@@ -12,6 +13,8 @@ const click = async () => {
     if (res != null) {
         ticketId.value = res;
         error.value = "";
+        
+        reloadTickets.value++;
     }
     else {
         error.value = "Something went wrong.";
