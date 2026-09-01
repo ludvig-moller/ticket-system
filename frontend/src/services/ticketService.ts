@@ -14,7 +14,7 @@ export async function getTickets(): Promise<Ticket[]> {
     return response.data;
 }
 
-export async function createTicket(): Promise<string | null> {
+export async function createTicket(): Promise<string> {
     const response = await axios.post(`${API_URL}/api/tickets`);
     return response.data.id;
 }

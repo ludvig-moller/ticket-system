@@ -7,13 +7,14 @@ import { getTickets } from '@/services/ticketService';
 import { apiKey } from '@/states/apiKey';
 import { reloadTickets } from '@/states/reloadTickets.ts';
 import DeleteTicket from './DeleteTicket.vue';
+import { errors } from '@/states/errors.ts';
 
 const tickets = ref<Ticket[] | null>(null);
-const error = ref<string | null>(null);
+const error = ref<boolean>(false);
 
 async function loadTickets() {
     if (!apiKey) {
-        error.value = "An API key is needed to show tickets."
+        errors.value.push("An API key is required to get tickets.");
         return
     }
 
@@ -31,18 +32,19 @@ async function loadTickets() {
         });
 
         tickets.value = ticketArray;
-        error.value = null;
+        error.value = false;
     } catch(err) {
+        error.value = true;
         tickets.value = null;
 
         if (axios.isAxiosError(err)) {
             if (err.response?.status === 401) {
-                error.value = "Invalid API key.";
+                errors.value.push("Invalid API key when getting tickets.");
             } else {
-                error.value = "Server error.";
+                errors.value.push("Got a server error when getting tickets.");
             }
         } else {
-            error.value = "Something went wrong.";
+            errors.value.push("Something went wrong when getting tickets.");
         }
     }
 }
@@ -58,8 +60,8 @@ watch(
 
 <template>
     <div id="ticketList">
-        <p class="error" v-if="error">
-            {{ error }}
+        <p v-if="error">
+            Could not get tickets.
         </p>
         <p v-else-if="tickets === null">
             Loading tickets.

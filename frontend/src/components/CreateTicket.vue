@@ -3,22 +3,22 @@
 import { ref } from 'vue';
 import { createTicket } from '@/services/ticketService';
 import { reloadTickets } from '@/states/reloadTickets';
+import axios from 'axios';
+import { errors } from '@/states/errors';
 
 const ticketId = ref("");
-const error = ref("");
 
 const click = async () => {
-    const res = await createTicket();
-
-    if (res != null) {
+    try {
+        const res = await createTicket();
         ticketId.value = res;
-        error.value = "";
-        
         reloadTickets.value++;
-    }
-    else {
-        error.value = "Something went wrong.";
-        ticketId.value = "";
+    } catch(err) {
+        if (axios.isAxiosError(err)) {
+            errors.value.push("Got a server error when creating ticket.");
+        } else {
+            errors.value.push("Something went wrong when creating ticket.");
+        }
     }
 }
 </script>
@@ -27,12 +27,8 @@ const click = async () => {
     <div id="createTicket">
         <button @click="click">Create a Ticket</button>
 
-        <p v-if="!error"> 
+        <p> 
             {{ ticketId }}
-        </p>
-
-        <p v-else class="error">
-            {{ error }}
         </p>
     </div>
 </template>

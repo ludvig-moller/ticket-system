@@ -10,9 +10,9 @@ vi.mock("@/services/ticketService.ts", () => ({
 }));
 
 describe("TicketList", () => {
-    it("shows errors", async () => {
+    it("updates errors", async () => {
         vi.mocked(getTickets).mockRejectedValue(new Error("Testing error"));
-        
+
         mount(TicketList);
         await flushPromises();
 

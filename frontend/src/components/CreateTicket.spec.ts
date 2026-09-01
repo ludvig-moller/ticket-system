@@ -38,7 +38,7 @@ describe("CreateTicket", () => {
     });
 
     it("updates errors", async () => {
-        vi.mocked(createTicket).mockResolvedValue(null);
+        vi.mocked(createTicket).mockRejectedValue(new Error("Testing error"));
 
         const wrapper = mount(CreateTicket);
 
