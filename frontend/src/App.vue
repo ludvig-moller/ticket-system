@@ -8,12 +8,12 @@ import UseTicket from './components/UseTicket.vue';
 </script>
 
 <template>
+  <ErrorDisplay />
   <main>
     <ApiKey />
     <CreateTicket />
     <UseTicket />
     <TicketList />
-    <ErrorDisplay />
   </main>
 </template>
 

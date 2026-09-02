@@ -29,7 +29,7 @@ button:hover {
 }
 
 input {
-    width: 80%;
+    width: 70%;
     border-style: solid;
     border-color: gray;
     border-radius: 20px;
@@ -47,10 +47,8 @@ ul {
 li {
     padding: 10px;
     border: solid;
+    border-width: 2px;
     border-radius: 10px;
+    border-color: gray;
     font-size: large;
-}
-
-.error {
-    color: red;
 }

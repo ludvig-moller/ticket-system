@@ -70,8 +70,8 @@ watch(
             No tickets found.
         </p>
         <ul v-else>
-            <li v-for="ticket in tickets" v-bind:class="(ticket.used)?'used':''">
-                <p>{{ ticket.id }}</p>
+            <li class="ticket" v-for="ticket in tickets" v-bind:class="(ticket.used)?'used':''">
+                <p class="ticketId">{{ ticket.id }}</p>
                 <DeleteTicket v-bind:ticketId="ticket.id" />
             </li>
         </ul>
@@ -79,6 +79,15 @@ watch(
 </template>
 
 <style>
+.ticket {
+    display: flex;
+    justify-content: space-between;
+}
+
+.ticketId {
+    margin: 15px;
+}
+
 .used {
     background-color: lightgray;
 }

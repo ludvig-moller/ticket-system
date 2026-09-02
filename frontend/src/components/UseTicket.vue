@@ -45,6 +45,5 @@ const click = async () => {
 #useTicket {
     display: flex;
     justify-content: space-between;
-    gap: 40px;
 }
 </style>
