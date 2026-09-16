@@ -10,7 +10,12 @@ import { createTicketRoutes } from "./routes/ticketRoutes.ts";
 
 const app: Express = express();
 
-app.use(cors());
+const allowedOrigins = process.env.CORS_ALLOW_ORIGINS?.split(",");
+
+app.use(cors({
+    origin: allowedOrigins,
+    allowedHeaders: ["content-type", "x-api-key"],
+}));
 
 const ticketRepository = new TicketRepository(db);
 const ticketService = new TicketService(ticketRepository);
