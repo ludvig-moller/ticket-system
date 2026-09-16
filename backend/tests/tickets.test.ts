@@ -124,6 +124,21 @@ describe("DELETE /api/tickets/:id", () => {
         expect(res.status).toBe(401)
     });
 
+    it("should return 409 when the ticket is used", async () => {
+        const newTicketId = crypto.randomUUID();
+        insertTicket.run(newTicketId);
+
+        // Use the ticket
+        await request(app)
+            .post(`/api/tickets/${newTicketId}`);
+
+        const res = await request(app)
+            .delete(`/api/tickets/${newTicketId}`)
+            .set("x-api-key", api_key);
+        
+        expect(res.status).toBe(409);
+    });
+
     it("should return 404 when the ticket dosent exist", async () => {
         const res = await request(app)
             .delete("/api/tickets/invalid-id")
