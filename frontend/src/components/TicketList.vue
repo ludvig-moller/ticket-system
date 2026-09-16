@@ -72,7 +72,7 @@ watch(
         <ul v-else>
             <li class="ticket" v-for="ticket in tickets" v-bind:class="(ticket.used)?'used':''">
                 <p class="ticketId">{{ ticket.id }}</p>
-                <DeleteTicket v-bind:ticketId="ticket.id" />
+                <DeleteTicket v-if="!ticket.used" v-bind:ticketId="ticket.id" />
             </li>
         </ul>
     </div>

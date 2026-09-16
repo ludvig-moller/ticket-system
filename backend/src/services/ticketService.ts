@@ -37,6 +37,9 @@ export class TicketService {
         if (ticket === undefined)
             throw new NotFoundError("Ticket not found");
 
+        if (Boolean(ticket.used))
+            throw new ConflictError("Ticket has already been used");
+
         this.ticketRepository.delete(id);
     }
 }
